@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzler/quiz_brain.dart';
+import 'package:rflutter_alert/src/alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -33,6 +34,15 @@ class _QuizPageState extends State<QuizPage> {
   void checkUserAnswer(bool pickedAnswer) {
     bool answer = quizBrain.getCorrectAnswer();
     setState(() {
+
+      bool lastQuestion = quizBrain.isFinished();
+      if (lastQuestion) {
+        Alert(context: context, title: "Finished!", desc: "You've made it to the end.").show();
+        quizBrain.reset();
+        scoreKeeper.clear();
+        return;
+      }
+
       if (pickedAnswer == answer) {
         scoreKeeper.add(Icon(
           Icons.check,
@@ -48,7 +58,6 @@ class _QuizPageState extends State<QuizPage> {
       quizBrain.nextQuestion();
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Column(

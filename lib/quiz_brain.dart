@@ -1,7 +1,6 @@
 import 'package:quizzler/question.dart';
 
 class QuizBrain {
-
   int _questionPosition = 0;
 
   List<Question> _questions = [
@@ -46,6 +45,18 @@ class QuizBrain {
 
   bool getCorrectAnswer() {
     return _questions[_questionPosition].questionAnswer;
-}
+  }
 
+  bool isFinished() {
+    print(_questions.length - 1);
+    print(_questionPosition);
+    if (_questions.length - 1 == _questionPosition) {
+      return true;
+    }
+    return false;
+  }
+
+  void reset() {
+    _questionPosition = 0;
+  }
 }
